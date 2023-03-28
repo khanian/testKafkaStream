@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 public class SspConsumer {
     @KafkaListener(id = "ssp-to-listener", topics = "ssp-topic-to")
     public void listen(String message) {
-        System.out.println("Listener, message =" + message);
+        System.out.println("Listener to producer :::: , message =" + message);
     }
 }

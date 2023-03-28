@@ -20,13 +20,16 @@ public class SspStreamsConfiguration {
     @Bean
     public KStream<String, String> kStream(StreamsBuilder streamsBuilder) {
         KStream<String, String> stream = streamsBuilder.stream("ssp-topic");
-        stream.groupBy((key, value) -> value)
+        /*stream.groupBy((key, value) -> value)
                 .count()
                 .toStream()
                 .peek((key, value) -> System.out.println("key="+ key + "value=" + value));
+*/
+        stream.peek((key, value) -> System.out.println("Stream:::: message=" + value))
+                //.map((key, value) -> KeyValue.pair(key, "Hello. listener"))
+                .to("ssp-topic-to");
 
-        //stream.peek((key, value) -> System.out.println("Stream. message=" + value))
-                //.map((key, value) -> KeyValue.pair(key, "Hello. listener")).to("ssp-topic-to");
+        //return streamsBuilder.stream("ssp-topic");
 
         return stream;
     }
@@ -39,7 +42,7 @@ public class SspStreamsConfiguration {
         configs.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         configs.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         //configs.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, "2");
-        configs.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE);
+        configs.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE_V2);
 
 
         return new KafkaStreamsConfiguration(configs);
