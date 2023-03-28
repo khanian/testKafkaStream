@@ -17,8 +17,8 @@ public class SspTestKafkaStreamApplication {
     public ApplicationRunner runner(KafkaTemplate<String, String> kafkaTemplate) {
         return args -> {
             while (true) {
-                kafkaTemplate.send("ssp-topic", "Hello, ssp topic123");
-                Thread.sleep(1_000);
+                //kafkaTemplate.send("ssp-topic", "Hello, ssp topic 123");
+                //Thread.sleep(3000l);
             }
          };
     }
