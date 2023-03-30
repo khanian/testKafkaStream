@@ -26,7 +26,7 @@ public class SspStreamsConfiguration {
                 .peek((key, value) -> System.out.println("key="+ key + "value=" + value));
 */
         stream.peek((key, value) -> System.out.println("Stream:::: message=" + value))
-                .map((key, value) -> KeyValue.pair(key, "Hello. listener 1212121"))
+                .map((key, value) -> KeyValue.pair(key, "from-to : "+value))
                 .to("ssp-topic-to");
 
         //return streamsBuilder.stream("ssp-topic");
